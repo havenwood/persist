@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["shannonskipper@gmail.com"]
   gem.description   = %q{Simple NoSQL Persistent Object Store for Ruby}
   gem.summary       = %q{This gem allows you to save Ruby Objects to a persistent store and recover them later.}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/Havenwood/persist"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
