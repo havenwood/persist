@@ -18,7 +18,28 @@ Or install it yourself as:
 
 ## Usage
 
-```db = Store.new```
+Example in IRB:
+
+```ruby
+require 'persist'
+
+db = Persist.new
+  #=> #<Persist:0x007fa5ca29f258 @stash={}>
+
+db.stash[:siblings] = ["Katie", "Molly", "Shannnon"]
+  #=> {:siblings=>["Katie", "Molly", "Shannnon"]}
+
+db.push # This saves your Stash to the persistent store.
+  #=> <File:.persistent_store (closed)>
+  
+  # You can now quit IRB and your stash will persist.
+  
+db = Persist.new # In a new Irb session.
+  #=> #<Persist:0x007fb8c519e7d8 @stash={:siblings=>["Katie", "Molly", "Shannnon"]}
+  
+db.stash[:siblings]
+  #=> ["Katie", "Molly", "Shannnon"]
+```
 
 ## Contributing
 
