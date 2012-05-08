@@ -1,3 +1,3 @@
-class Persist
-  VERSION = "0.0.1"
+module Persist
+  VERSION = "0.0.2"
 end
