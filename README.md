@@ -18,33 +18,37 @@ Or install it yourself as:
 
 ## Usage
 
-Example in IRB:
+Example in Pry (or IRB):
 
 ```ruby
 require 'persist'
+  #=> true
 
-db = Persist.new
-  #=> #<Persist:0x007fa5ca29f258 @stash={}>
+Persist.pull
+  #=> {}
+  
+Persist.store[:siblings] = ["Katie", "Molly", "Shannnon"]
+  #=> ["Katie", "Molly", "Shannnon"]
 
-db.stash[:siblings] = ["Katie", "Molly", "Shannnon"]
-  #=> {:siblings=>["Katie", "Molly", "Shannnon"]}
-
-db.push # This saves your Stash to the persistent store.
+Persist.push # This saves your Stash to the persistent store.
   #=> <File:.persistent_store (closed)>
+```
+
+You can now quit IRB and your store will persist!
+
+```ruby
+require 'persist'
+  #=> true
+
+Persist.pull
+  #=> {:siblings=>["Katie", "Molly", "Shannnon"]}
   
-  # You can now quit IRB and your stash will persist.
-  
-db = Persist.new # In a new Irb session.
-  #=> #<Persist:0x007fb8c519e7d8 @stash={:siblings=>["Katie", "Molly", "Shannnon"]}
-  
-db.stash[:siblings]
+Persist.pull[:siblings]
   #=> ["Katie", "Molly", "Shannnon"]
 ```
 
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+2. Commit your changes (`git commit -am 'Added some feature'`)
+3. Create new Pull Request

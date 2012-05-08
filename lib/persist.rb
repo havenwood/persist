@@ -6,20 +6,16 @@ module Persist
   
     attr_accessor :store
   
-    def initialize
+    def pull
       unless File.exists? STORE
         self.reset!
       end
-      self.pull
-    end
-  
-    def pull
-      @stash = Marshal.load File.read(STORE)
+      @store = Marshal.load File.read(STORE)
     end
   
     def push
       File.open STORE, 'w' do |store|
-        store << Marshal.dump(@stash)
+        store << Marshal.dump(@store)
       end
     end
   
