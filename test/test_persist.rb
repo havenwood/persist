@@ -2,13 +2,13 @@ require_relative 'helper'
 
 describe Persist do
   before do
-    @db = Persist.db
+    Persist.pull
     Persist[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
   end
   
   describe "initializing the persistent store with Persist.db" do
     it "returns a PStore object" do
-      assert_equal PStore, @db.class
+      assert_equal PStore, Persist.db.class
     end
   end
   

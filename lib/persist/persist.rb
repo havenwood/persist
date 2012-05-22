@@ -4,7 +4,7 @@
 module Persist
   class << self
     # Public: Returns the persistant store Object if initialized.
-    attr_reader :store
+    attr_reader :db
     
     # Public: Initialize the PStore Object--deserializing the marshalled Hash
     # stored in the '.db.pstore' file (creating the file if it does't exist)--
@@ -12,7 +12,7 @@ module Persist
     #
     # Examples
     #
-    #   Persist.db
+    #   Persist.pull
     #   # => #<PStore:0x007f8c199c9698
     #     @abort=false,
     #     @filename=".db.pstore",
@@ -23,11 +23,11 @@ module Persist
     #     @ultra_safe=true>
     #
     # Returns the entire persistent store Object.
-    def db
-      @store = PStore.new '.db.pstore', true
-      @store.ultra_safe = true
-      @store.transaction(true) {}
-      @store
+    def pull
+      @db = PStore.new '.db.pstore', true
+      @db.ultra_safe = true
+      @db.transaction(true) {}
+      @db
     end
     
     # Public: Fetch a list of persistent store root tables.
@@ -39,8 +39,8 @@ module Persist
     #
     # Returns an Array containing the persistent store root tables.
     def keys
-      @store.transaction true do
-        @store.roots
+      @db.transaction true do
+        @db.roots
       end
     end
     
@@ -59,8 +59,8 @@ module Persist
     #
     # Returns true or false.
     def key? table
-      @store.transaction true do
-        @store.root? table
+      @db.transaction true do
+        @db.root? table
       end
     end
     
@@ -79,8 +79,8 @@ module Persist
     #
     # Returns the value stored in the fetched table.
     def [] table
-      @store.transaction true do
-        @store[table]
+      @db.transaction true do
+        @db[table]
       end
     end
     
@@ -97,8 +97,8 @@ module Persist
     #
     # Returns the value of the table.
     def []= table, value
-      @store.transaction do
-        @store[table] = value
+      @db.transaction do
+        @db[table] = value
       end
     end
     
@@ -112,16 +112,16 @@ module Persist
     # Examples
     #
     #   Persist.transaction do
-    #     Persist.store[:weather] = 'sunny'
-    #     Persist.store[:hour] = 'midday'
+    #     Persist.db[:weather] = 'sunny'
+    #     Persist.db.delete[:author]
     #   end
     #   # => nil
     #
     # Returns nothing.
     def transaction &block
-      @store.transaction do
+      @db.transaction do
         yield
-        @store.commit
+        @db.commit
       end
     end
     
@@ -140,11 +140,11 @@ module Persist
     #
     # Returns nothing.
     def delete *tables
-      @store.transaction do
+      @db.transaction do
         tables.each do |table|
-          @store.delete table
+          @db.delete table
         end
-        @store.commit
+        @db.commit
       end
     end
     
@@ -157,7 +157,7 @@ module Persist
     #
     # Returns the path to the data file as a String.
     def path
-      @store.path
+      @db.path
     end
   end
 end
