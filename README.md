@@ -48,7 +48,7 @@ Persist[:pie]
   #=> ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
-TODO: Document Persist.db's other public methods such as #transaction, #delete, #key? and #keys. The best documentation in the meanwhile is in the code itself: https://github.com/Havenwood/persist/blob/master/lib/persist.rb
+TODO: Document Persist.db's other public methods such as #transaction, #delete, #key? and #keys. The best documentation in the meanwhile is in the code itself: https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb
 
 ## Contributing
 
