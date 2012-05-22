@@ -12,6 +12,6 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^test/})
   gem.name          = 'persist'
-  gem.require_paths = ['lib', 'test']
+  gem.require_paths = ['lib']
   gem.version       = Persist::VERSION
 end
