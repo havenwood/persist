@@ -15,6 +15,8 @@ And then execute:
 Or install it yourself:
 
     $ gem install persist
+    
+*Requires Ruby 1.9 or newer.
 
 ## Usage
 
