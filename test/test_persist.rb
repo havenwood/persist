@@ -58,7 +58,7 @@ describe Persist do
     end
   end
   
-  describe "deleting a root key" do
+  describe "deleting a root key with Persist.delete(:key)" do
     before do
       Persist.delete :author
     end
