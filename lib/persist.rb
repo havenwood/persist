@@ -56,7 +56,24 @@ module Persist
       end
     end
     
-    alias tables keys
+    # Public: Determine whether a particular persistent store root table exists.
+    #
+    # Examples
+    #
+    #   Persist.key? :author
+    #   # => true
+    #
+    #   Persist.key? :this_does_not_exist
+    #   # => false
+    #
+    # Returns true or false.
+    def key? table
+      # Open a read-only transaction.
+      @store.transaction(true) do
+        #Return a list of all tables in the persistent store.
+        @store.root? table
+      end
+    end
     
     # Public: Fetch a particular table from the persistent store.
     #
