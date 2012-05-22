@@ -3,11 +3,12 @@
 # database.
 module Persist
   class << self
-    # Returns the persistant store Object if one has been initialized.
+    # Public: Returns the persistant store Object if initialized.
     attr_reader :store
     
-    # Public: Initialize the PStore Object, deserializing the marshalled Hash
-    # stored in the '.db.pstore' file (creating the file if it does't exist).
+    # Public: Initialize the PStore Object--deserializing the marshalled Hash
+    # stored in the '.db.pstore' file (creating the file if it does't exist)--
+    # and set thread_safe and ultra_safe to true.
     #
     # Examples
     #
@@ -23,17 +24,9 @@ module Persist
     #
     # Returns the entire persistent store Object.
     def db
-      # Initialize a persistent store in the file '.db.pstore' and set
-      # thread_safe to true.
-      @store = PStore.new('.db.pstore', true)
-      
-      # Set ultru_safe to true for extra safety checks regarding full disk, etc.
+      @store = PStore.new '.db.pstore', true
       @store.ultra_safe = true
-      
-      # Open a read-only transaction to fetch latest store.
       @store.transaction(true) {}
-      
-      # Return the entire fetched store Object.
       @store
     end
     
@@ -46,14 +39,15 @@ module Persist
     #
     # Returns an Array containing the persistent store root tables.
     def keys
-      # Open a read-only transaction.
-      @store.transaction(true) do
-        #Return a list of all tables in the persistent store.
+      @store.transaction true do
         @store.roots
       end
     end
     
-    # Public: Determine whether a particular persistent store root table exists.
+    # Public: Determine whether a particular persistent store root table
+    # exists.
+    #
+    # table - A Symbol.
     #
     # Examples
     #
@@ -65,16 +59,15 @@ module Persist
     #
     # Returns true or false.
     def key? table
-      # Open a read-only transaction.
-      @store.transaction(true) do
-        #Return a list of all tables in the persistent store.
+      @store.transaction true do
         @store.root? table
       end
     end
     
     # Public: Fetch a particular table from the persistent store.
     #
-    # table - A Symbol.
+    # table - A Symbol corresponding to a root table key in the persistent 
+    #         store.
     #
     # Examples
     #
@@ -86,9 +79,7 @@ module Persist
     #
     # Returns the value stored in the fetched table.
     def [] table
-      # Open a read-only transaction.
-      @store.transaction(true) do
-        # Return a particular table from the persistent store.
+      @store.transaction true do
         @store[table]
       end
     end
@@ -106,11 +97,9 @@ module Persist
     #
     # Returns the value of the table.
     def []= table, value
-      # Open a writable transaction.
       @store.transaction do
-        # Process the single transaction.
         @store[table] = value
-      end # Commit transaction.
+      end
     end
     
     # Public: Process multiple transactions to set table values and commit if
@@ -136,20 +125,39 @@ module Persist
       end
     end
     
-    # Public: Delete an entire root table from the persistent store.
+    # Public: Delete one or more entire root tables from the persistent store.
+    #
+    # tables - One or more Symbols corresponding to root table keys in the
+    #          persistent store.
     #
     # Examples
     #
     #   Persist.delete :author
     #   # => nil
     #
+    #   Persist.delete :author, :clients, :rentals
+    #   # => nil
+    #
     # Returns nothing.
-    def delete table
-      # Open a writable transaction.
+    def delete *tables
       @store.transaction do
-        # Delete a particular table from the persistent store.
-        @store.delete table
+        tables.each do |table|
+          @store.delete table
+        end
+        @store.commit
       end
+    end
+    
+    # Public: Determine location of the persistent store file.
+    #
+    # Examples
+    #
+    #   Persist.path
+    #   # => ".db.pstore"
+    #
+    # Returns the path to the data file as a String.
+    def path
+      @store.path
     end
   end
 end
