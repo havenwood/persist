@@ -67,4 +67,14 @@ describe Persist do
       assert_nil Persist[:author]
     end
   end
+  
+  describe "check path with Persist.path" do
+    it "returns a String" do
+      assert_kind_of String, Persist.path
+    end
+    
+    it "includes the data store file name" do
+      assert_includes ".db.pstore", Persist.path
+    end
+  end
 end
