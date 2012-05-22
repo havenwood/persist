@@ -52,8 +52,8 @@ Persist[:pie]
 
 TODO: Document Persist.db's other public methods such as #transaction, #delete, #path, #key? and #keys. The best documentation in the meanwhile is in the code itself: https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb
 
-## Is It "Production Ready™"?
-No. Persist.db is early Alpha, but please text it out and let me know if you find any bugs or real world performace problems.
+## Is It Production Ready™?
+No. Persist.db is early Alpha, but please try it out and let me know if you find any bugs or real-world performace problems.
 
 ## Contributing
 
