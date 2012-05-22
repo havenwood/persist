@@ -45,7 +45,10 @@ You can now quit IRB and your store will persist!
 ```ruby
 require 'persist'
   #=> true
-
+  
+Persist.db
+  #=> #<PStore:0x007f8c199c9698 ... >
+  
 Persist[:pie]
   #=> ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
