@@ -103,7 +103,7 @@ module Persist
     end
     
     # Public: Process multiple transactions to set table values and commit if
-    # all are transactions are successful.
+    # all transactions are successful.
     #
     # block - A required block that processes multiple transactions that 
     #         succeed or fail together to ensure that data is not left in a 
