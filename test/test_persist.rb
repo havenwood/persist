@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require_relative '../lib/persist'
+require_relative 'helper'
 
 describe Persist do
   before do
