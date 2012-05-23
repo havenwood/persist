@@ -82,13 +82,13 @@ Persist.path
   #=> ".db.pstore"
 ```
 
-Transactions:
+Transactions succeed or fail together to ensure that data is not left in a transitory state:
 
 ```ruby
 Persist.transaction do
   Persist.db[:new_key] = 'value'
   Persist.db.delete :pie
-end # If all transactions are succesful, they are commited, otherwise aborted.
+end
 ```
 
 TODO: Better README. In the meanwhile, documentation is better in the code itself: https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb
