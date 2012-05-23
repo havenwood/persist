@@ -53,6 +53,10 @@ Persist[:pie]
   #=> ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
+## Helper Methods
+
+Each of Persist.db's tables is stored as a key:
+
 ```ruby
 Persist.keys
   #=> [:pie]
@@ -64,7 +68,30 @@ Persist.key? :nope
   #=> false
 ```
 
-TODO: Document Persist.db's other public methods such as #transaction, #delete and #path. The best documentation in the meanwhile is in the code itself: https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb
+Tables can be clobbered:
+
+```ruby
+Persist.delete :pie
+  #=> nil
+```
+
+To check the location of your persistent store file:
+
+```ruby
+Persist.path
+  #=> ".db.pstore"
+```
+
+Transactions:
+
+```ruby
+Persist.transaction do
+  Persist.db[:new_key] = 'value'
+  Persist.db.delete :pie
+end # If all transactions are succesful, they are commited, otherwise aborted.
+```
+
+TODO: Better README. In the meanwhile, documentation is better in the code itself: https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb
 
 ## Is It Production Ready™?
 No. Persist.db is early Alpha, but please try it out and let me know if you find any bugs or real-world performance problems.
