@@ -23,7 +23,7 @@ describe Persist do
       assert Persist.key?(:author)
     end
     
-    it "returns false if the key does't exist" do
+    it "returns false if the key doesn't exist" do
       refute Persist.key?(:this_does_not_exist)
     end
   end
@@ -38,7 +38,7 @@ describe Persist do
     end
   end
   
-  describe "setting a perticular key's value with Persist[:key] = value" do
+  describe "setting a particular key's value with Persist[:key] = value" do
     before do
       Persist[:trees] = ['oak', 'pine', 'cedar']
     end
