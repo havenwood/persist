@@ -1,3 +1,5 @@
+require 'pstore'
+
 # Public: Implements a DSL around Ruby Standard Library's PStore to facilitate
 # simple file-persistant storage of Ruby objects in a transactional NoSQL
 # database.
