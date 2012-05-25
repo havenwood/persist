@@ -1,6 +1,6 @@
 # Persist.db
 
-Persist.db is a simple gem that allows you to painlessly save Ruby Objects in a NoSQL persistent file store.
+Persist.db implements a DSL around Ruby Standard Library's PStore to facilitate simple file-persistant storage of Ruby objects in a transactional NoSQL database.
 
 ## Installation
 
@@ -15,8 +15,6 @@ And then execute:
 Or install it yourself:
 
     $ gem install persist
-    
-*Requires Ruby 1.9 or newer.
 
 ## Usage
 
@@ -38,9 +36,12 @@ Persist.pull
   
 Persist[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
   # => ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
+
+Persist[:ice_cream] = ['chocolate', 'vanilla']
+  # => ["chocolate", "vanilla"]
 ```
 
-You can now quit IRB and your store will persist!
+You can now exit Pry/IRB and your store will persist!
 
 ```ruby
 require 'persist'
@@ -59,12 +60,12 @@ Each of Persist.db's tables is stored as a key:
 
 ```ruby
 Persist.keys
-  #=> [:pie]
+  #=> [:pie, :ice_cream]
 
 Persist.key? :pie
   #=> true
 
-Persist.key? :nope
+Persist.key? :cake
   #=> false
 ```
 
@@ -86,18 +87,19 @@ Transactions succeed or fail together to ensure that data is not left in a trans
 
 ```ruby
 Persist.transaction do
-  Persist.db[:new_key] = 'value'
+  Persist.db[:cake] = 'pie is better!'
   Persist.db.delete :pie
 end
 ```
 
-TODO: Better README. In the meanwhile, documentation is better in the code itself: https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb
+[Additional documentation](https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb) in the code.
 
-## Is It Production Ready™?
-No. Persist.db is early Alpha, but please try it out and let me know if you find any bugs or real-world performance problems.
+## Supported Platforms
+
+Persist.db makes use of PStore's ultra_safe attribute, which requires Ruby 1.9+ on a POSIX platform such as GNU/Linux, OS X or FreeBSD.
 
 ## Contributing
 
 1. Fork it
-2. Commit your changes (`git commit -am 'Did something'`)
+2. Commit your changes (`git commit -am 'did something'`)
 3. Create new Pull Request
