@@ -18,7 +18,7 @@ describe Persist do
     end
   end
   
-  describe "getting true or false if key exists with Persist.key?(:key)" do
+  describe "getting true or false if key exists with Persist.key?" do
     it "returns true if key exists" do
       assert Persist.key?(:author)
     end
@@ -28,7 +28,7 @@ describe Persist do
     end
   end
   
-  describe "getting a particular key's value with Persist[:key]" do
+  describe "getting a particular key's value with Persist.[]" do
     it "returns a value if the key exists" do
       assert_equal "Shannon", Persist[:author][:first_name]
     end
@@ -38,7 +38,22 @@ describe Persist do
     end
   end
   
-  describe "setting a particular key's value with Persist[:key] = value" do
+  describe "getting a particular key or default value with Persist.fetch" do
+    it "returns a value if the key exists" do
+      assert_equal "Shannon", Persist.fetch(:author)[:first_name]
+    end
+    
+    it "returns nil if the key doesn't exist and no default is given" do
+      assert_nil Persist.fetch(:this_does_not_exist)
+    end
+    
+    it "returns the default value if the key doesn't exist" do
+      Persist.fetch(:this_does_not_exist, "default value")
+      assert_equal "default value", response
+    end
+  end
+  
+  describe "setting a particular key's value with Persist.[]=" do
     before do
       Persist[:trees] = ['oak', 'pine', 'cedar']
     end
@@ -52,13 +67,13 @@ describe Persist do
     end
   end
   
-  describe "setting multiple key's values with Persist.transaction do ..." do
+  describe "setting multiple key's values with Persist.transaction do" do
     it "blends" do
       assert true #TODO: test.
     end
   end
   
-  describe "deleting a root key with Persist.delete(:key)" do
+  describe "deleting a root key with Persist.delete" do
     before do
       Persist.delete :author
     end

@@ -86,6 +86,31 @@ module Persist
       end
     end
     
+    # Public: Fetch a particular table from the persistent store.
+    #
+    # table   - A Symbol corresponding to a root table key in the persistent 
+    #           store.
+    #
+    # default - An optional value that is returned if the table is not found.
+    #
+    # Examples
+    #
+    #   Persist.fetch :author
+    #   # => {:first_name => "Shannon", :last_name => "Skipper"}
+    #
+    #   Persist.fetch :snowman
+    #   # => nil
+    #
+    #   Persist.fetch :snowman, 'default value instead of nil'
+    #   # => "default value instead of nil"
+    #
+    # Returns the value stored in the fetched table.
+    def fetch table, default = nil
+      @db.transaction true do
+        @db.fetch table, default
+      end
+    end
+    
     # Public: Use a single transaction to set a table value.
     #
     # table - A Symbol.
