@@ -98,8 +98,8 @@ end
 
 Persist.db makes use of PStore's ultra_safe attribute, which requires:
 
-1. Ruby 1.9 or higher
-2. A platform that supports atomic file renames (OS X, GNU/Linux, FreeBSD, etc.)
+1. Ruby 1.9 or greater (works on [MRI](http://www.ruby-lang.org/en/) or [RBX](http://rubini.us/) in 1.9 mode [i.e., `rvm install rbx --1.9` or rbx with -X19 command line flag])
+2. A POSIX platform supporting atomic file renames (OS X, GNU/Linux, FreeBSD, etc. [Read: not Windows])
 
 ## Contributing
 
