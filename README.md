@@ -98,13 +98,11 @@ end
 
 Persist.db makes use of PStore's ultra_safe attribute, which requires:
 
-1. Ruby 1.9 or greater with a supported PStore implementation:
-    * [MRI](http://www.ruby-lang.org/en/) 1.9+ or [RBX](http://rubini.us/) in 1.9 mode (`rvm install rbx --1.9` or rbx with -X19 command line flag).
-2. A POSIX compliant platform:
-    * OS X, GNU/Linux, FreeBSD, Etc.
+1. Ruby 1.9.2 or greater or Rubinius in 1.9 mode (`rvm install rbx --1.9` or rbx with -X19 command line flag).
+2. A POSIX platform such as OS X, GNU/Linux or FreeBSD.
 
 ## Contributing
 
-1. Fork it
-2. Commit your changes (`git commit -am 'did something'`)
-3. Create new Pull Request
+1. Fork it.
+2. Commit changes (`git commit -am 'did something'`).
+3. Pull Request.
