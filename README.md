@@ -96,7 +96,10 @@ end
 
 ## Supported Platforms
 
-Persist.db makes use of PStore's ultra_safe attribute, which requires Ruby 1.9+ on a POSIX platform such as GNU/Linux, OS X or FreeBSD.
+Persist.db makes use of PStore's ultra_safe attribute, which requires:
+
+1. Ruby 1.9 or higher
+2. A platform that supports atomic file renames (OS X, GNU/Linux, FreeBSD, etc.)
 
 ## Contributing
 
