@@ -98,8 +98,8 @@ end
 
 Persist.db makes use of PStore's ultra_safe attribute, which requires:
 
-1. Ruby 1.9--tested on `ruby-1.9.3` and `rbx --1.9`
-2. A POSIX platform--such as OS X, GNU/Linux or FreeBSD
+1. Ruby 1.9 (tested on `ruby-1.9.3` and `rbx --1.9` thus far)
+2. A POSIX platform (such as OS X, GNU/Linux or FreeBSD)
 
 ## Contributing
 
