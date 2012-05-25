@@ -48,8 +48,8 @@ describe Persist do
     end
     
     it "returns the default value if the key doesn't exist" do
-      Persist.fetch(:this_does_not_exist, "default value")
-      assert_equal "default value", response
+      default = Persist.fetch(:this_does_not_exist, "default value")
+      assert_equal "default value", default
     end
   end
   
@@ -69,7 +69,7 @@ describe Persist do
   
   describe "setting multiple key's values with Persist.transaction do" do
     it "blends" do
-      assert true #TODO: test.
+      assert false #TODO: test.
     end
   end
   
