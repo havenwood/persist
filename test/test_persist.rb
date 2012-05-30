@@ -67,9 +67,22 @@ describe Persist do
     end
   end
   
-  describe "setting multiple key's values with Persist.transaction do" do
-    it "blends" do
-      assert false #TODO: test.
+  describe "a Persist.transaction do" do
+    it "sets multiple keys when commited" do
+      Persist.transaction do
+        Persist.db[:one] = 1
+        Persist.db[:two] = 2
+      end
+      assert_equal 1, Persist[:one]
+      assert_equal 2, Persist[:two]
+    end
+    
+    it "sets no keys when aborted" do
+      Persist.transaction do
+        Persist.db[:pre] = :this
+        Persist.db.abort
+      end
+      assert_nil Persist[:pre]
     end
   end
   
