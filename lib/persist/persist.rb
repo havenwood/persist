@@ -2,7 +2,8 @@ require 'pstore'
 
 # Public: Implements a DSL around Ruby Standard Library's PStore to facilitate
 # simple file-persistant storage of Ruby objects in a transactional NoSQL
-# database.
+# database. All methods are module methods and should be called on the Persist
+# module.
 module Persist
   class << self
     # Public: Returns the persistant store Object if initialized.
