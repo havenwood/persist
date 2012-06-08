@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = 'persist'
   gem.require_paths = ['lib']
   gem.version       = Persist::VERSION
+  
+  gem.add_development_dependency 'minitest'
 end
