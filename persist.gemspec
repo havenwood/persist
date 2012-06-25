@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^test/})
   gem.name          = 'persist'
   gem.require_paths = ['lib']
-  gem.version       = Persist::VERSION
+  gem.version       = Persist.version
   
   gem.add_development_dependency 'minitest'
 end

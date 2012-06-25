@@ -1,3 +1,7 @@
 module Persist
-  VERSION = '0.0.7'
+  MAJOR, MINOR, TINY = 0, 0, 8
+  
+  def self.version
+    [MAJOR, MINOR, TINY].join '.'
+  end
 end
