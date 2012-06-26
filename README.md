@@ -86,9 +86,9 @@ Persist.path
 Transactions succeed or fail together to ensure that data is not left in a transitory state:
 
 ```ruby
-Persist.transaction do
-  Persist.db[:cake] = 'pie is better!'
-  Persist.db.delete :pie
+Persist.transaction do |db|
+  db[:cake] = 'pie is better!'
+  db.delete :pie
 end
 ```
 
