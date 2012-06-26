@@ -33,6 +33,35 @@ module Persist
       @db
     end
     
+    def initialize_db
+      @db || pull
+    end
+    
+    # Public: Process multiple transactions to set table values and commit if
+    # all transactions are successful.
+    #
+    # block - A required block that processes multiple transactions that 
+    #         succeed or fail together to ensure that data is not left in a 
+    #         transitory state.
+    #
+    # Examples
+    #
+    #   Persist.transaction do |db|
+    #     db[:weather] = 'sunny'
+    #     db.delete[:author]
+    #   end
+    #   # => nil
+    #
+    # Returns nothing.
+    def transaction
+      initialize_db
+      
+      @db.transaction do
+        yield @db
+        @db.commit
+      end
+    end
+    
     # Public: Fetch a list of persistent store root tables.
     #
     # Examples
@@ -42,6 +71,8 @@ module Persist
     #
     # Returns an Array containing the persistent store root tables.
     def keys
+      initialize_db
+
       @db.transaction true do
         @db.roots
       end
@@ -62,6 +93,8 @@ module Persist
     #
     # Returns true or false.
     def key? table
+      initialize_db
+      
       @db.transaction true do
         @db.root? table
       end
@@ -82,6 +115,8 @@ module Persist
     #
     # Returns the value stored in the fetched table.
     def [] table
+      initialize_db
+      
       @db.transaction true do
         @db[table]
       end
@@ -107,6 +142,8 @@ module Persist
     #
     # Returns the value stored in the fetched table.
     def fetch table, default = nil
+      initialize_db
+      
       @db.transaction true do
         @db.fetch table, default
       end
@@ -125,34 +162,13 @@ module Persist
     #
     # Returns the value of the table.
     def []= table, value
+      initialize_db
+      
       @db.transaction do
         @db[table] = value
       end
     end
-    
-    # Public: Process multiple transactions to set table values and commit if
-    # all transactions are successful.
-    #
-    # block - A required block that processes multiple transactions that 
-    #         succeed or fail together to ensure that data is not left in a 
-    #         transitory state.
-    #
-    # Examples
-    #
-    #   Persist.transaction do
-    #     Persist.db[:weather] = 'sunny'
-    #     Persist.db.delete[:author]
-    #   end
-    #   # => nil
-    #
-    # Returns nothing.
-    def transaction &block
-      @db.transaction do
-        yield
-        @db.commit
-      end
-    end
-    
+        
     # Public: Delete one or more entire root tables from the persistent store.
     #
     # tables - One or more Symbols corresponding to root table keys in the
@@ -168,6 +184,8 @@ module Persist
     #
     # Returns nothing.
     def delete *tables
+      initialize_db
+      
       @db.transaction do
         tables.each do |table|
           @db.delete table
@@ -185,6 +203,8 @@ module Persist
     #
     # Returns the path to the data file as a String.
     def path
+      initialize_db
+      
       @db.path
     end
   end

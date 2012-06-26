@@ -69,19 +69,19 @@ describe Persist do
   
   describe "a Persist.transaction do" do
     it "sets multiple keys when commited" do
-      Persist.transaction do
-        Persist.db[:one] = 'first'
-        Persist.db[:two] = 'second'
+      Persist.transaction do |db|
+        db[:one] = 'first'
+        db[:two] = 'second'
       end
       assert_equal 'first', Persist[:one]
       assert_equal 'second', Persist[:two]
     end
     
     it "sets no keys when aborted" do
-      Persist.transaction do
-        Persist.db[:pre] = 'before'
-        Persist.db.abort
-        Persist.db[:post] = 'after'
+      Persist.transaction do |db|
+        db[:pre] = 'before'
+        db.abort
+        db[:post] = 'after'
       end
       assert_nil Persist[:pre]
       assert_nil Persist[:post]
