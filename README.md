@@ -54,6 +54,17 @@ Persist[:pie]
   #=> ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
+## Transactions
+
+Transactions succeed or fail together to ensure that data is not left in a transitory state:
+
+```ruby
+Persist.transaction do |db|
+  db[:cake] = 'pie is better!'
+  db.delete :pie
+end
+```
+
 ## Helper Methods
 
 Each of Persist.db's tables is stored as a key:
@@ -81,15 +92,6 @@ To check the location of your persistent store file:
 ```ruby
 Persist.path
   #=> ".db.pstore"
-```
-
-Transactions succeed or fail together to ensure that data is not left in a transitory state:
-
-```ruby
-Persist.transaction do |db|
-  db[:cake] = 'pie is better!'
-  db.delete :pie
-end
 ```
 
 [Additional documentation](https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb) in the code.
