@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Persist.db : A DSL for file-persistent storage of Ruby Objects in a NoSQL database." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Persist.db</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Havenwood/persist">View on GitHub</a>
+
+          <h1 id="project_title">Persist.db</h1>
+          <h2 id="project_tagline">A DSL for file-persistent storage of Ruby Objects in a NoSQL database.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Havenwood/persist/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Havenwood/persist/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Persist.db</h1>
+
+<p>Persist.db implements a DSL around Ruby Standard Library's PStore to facilitate simple file-persistant storage of Ruby objects in a transactional NoSQL database.</p>
+
+<h2>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'persist'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself:</p>
+
+<pre><code>$ gem install persist
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>Example in Pry (or IRB if you must):</p>
+
+<div class="highlight">
+<pre><span class="nb">require</span> <span class="s1">'persist'</span>
+  <span class="c1">#=&gt; true</span>
+
+<span class="no">Persist</span><span class="o">.</span><span class="n">pull</span>
+ <span class="c1"># =&gt; #&lt;PStore:0x007f8c199c9698</span>
+   <span class="vi">@abort</span><span class="o">=</span><span class="kp">false</span><span class="p">,</span>
+   <span class="vi">@filename</span><span class="o">=</span><span class="s2">".db.pstore"</span><span class="p">,</span>
+   <span class="vi">@lock</span><span class="o">=</span><span class="c1">#&lt;Mutex:0x007f8c199c9580&gt;,</span>
+   <span class="vi">@rdonly</span><span class="o">=</span><span class="kp">true</span><span class="p">,</span>
+   <span class="vi">@table</span><span class="o">=</span><span class="p">{},</span>
+   <span class="vi">@thread_safe</span><span class="o">=</span><span class="kp">true</span><span class="p">,</span>
+   <span class="vi">@ultra_safe</span><span class="o">=</span><span class="kp">true</span><span class="o">&gt;</span>
+
+<span class="no">Persist</span><span class="o">[</span><span class="ss">:pie</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'Key Lime'</span><span class="p">,</span> <span class="s1">'Strawberry Rhubarb'</span><span class="p">,</span> <span class="s1">'Blackberry Cobbler'</span><span class="o">]</span>
+  <span class="c1"># =&gt; ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]</span>
+
+<span class="no">Persist</span><span class="o">[</span><span class="ss">:ice_cream</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'vanilla'</span><span class="o">]</span>
+  <span class="c1"># =&gt; ["chocolate", "vanilla"]</span>
+</pre>
+</div>
+
+
+<p>You can now exit Pry/IRB and your store will persist!</p>
+
+<div class="highlight">
+<pre><span class="nb">require</span> <span class="s1">'persist'</span>
+  <span class="c1">#=&gt; true</span>
+
+<span class="no">Persist</span><span class="o">.</span><span class="n">pull</span>
+  <span class="c1">#=&gt; #&lt;PStore:0x007f8c199c9698 ... &gt;</span>
+
+<span class="no">Persist</span><span class="o">[</span><span class="ss">:pie</span><span class="o">]</span>
+  <span class="c1">#=&gt; ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]</span>
+</pre>
+</div>
+
+
+<h2>Helper Methods</h2>
+
+<p>Each of Persist.db's tables is stored as a key:</p>
+
+<div class="highlight">
+<pre><span class="no">Persist</span><span class="o">.</span><span class="n">keys</span>
+  <span class="c1">#=&gt; [:pie, :ice_cream]</span>
+
+<span class="no">Persist</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:pie</span>
+  <span class="c1">#=&gt; true</span>
+
+<span class="no">Persist</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:cake</span>
+  <span class="c1">#=&gt; false</span>
+</pre>
+</div>
+
+
+<p>Tables can be clobbered:</p>
+
+<div class="highlight">
+<pre><span class="no">Persist</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
+  <span class="c1">#=&gt; nil</span>
+</pre>
+</div>
+
+
+<p>To check the location of your persistent store file:</p>
+
+<div class="highlight">
+<pre><span class="no">Persist</span><span class="o">.</span><span class="n">path</span>
+  <span class="c1">#=&gt; ".db.pstore"</span>
+</pre>
+</div>
+
+
+<p>Transactions succeed or fail together to ensure that data is not left in a transitory state:</p>
+
+<div class="highlight">
+<pre><span class="no">Persist</span><span class="o">.</span><span class="n">transaction</span> <span class="k">do</span> <span class="o">|</span><span class="n">db</span><span class="o">|</span>
+  <span class="n">db</span><span class="o">[</span><span class="ss">:cake</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'pie is better!'</span>
+  <span class="n">db</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p><a href="https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb">Additional documentation</a> in the code.</p>
+
+<h2>Supported Platforms</h2>
+
+<p>Persist.db makes use of PStore's ultra_safe attribute, which requires:</p>
+
+<ol>
+<li>Ruby 1.9 (tested on <code>ruby-1.9.3</code> and <code>rbx --1.9</code> thus far)</li>
+<li>A POSIX platform (such as OS X, GNU/Linux or FreeBSD)</li>
+</ol><h2>Contributing</h2>
+
+<ol>
+<li>Fork it</li>
+<li>Commit changes (<code>git commit -am 'did something'</code>)</li>
+<li>Submit a Pull Request</li>
+<li><img class="emoji" title=":cake:" alt=":cake:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/cake.png?v5" height="20" width="20" align="absmiddle"></li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Persist.db maintained by <a href="https://github.com/Havenwood">Havenwood</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
