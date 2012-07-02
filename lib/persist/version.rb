@@ -1,7 +1,19 @@
 module Persist
-  MAJOR, MINOR, TINY = 0, 0, 9
+  class << self
+    def major
+      0
+    end
   
-  def self.version
-    [MAJOR, MINOR, TINY].join '.'
+    def minor
+      1
+    end
+  
+    def tiny
+      0
+    end
+  
+    def version
+      [major, minor, tiny].join '.'
+    end
   end
 end
