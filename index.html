@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Persist.db : A DSL for file-persistent storage of Ruby Objects in a NoSQL database." />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Persist.db</title>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Persist.db by Havenwood</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Havenwood/persist">View on GitHub</a>
-
-          <h1 id="project_title">Persist.db</h1>
-          <h2 id="project_tagline">A DSL for file-persistent storage of Ruby Objects in a NoSQL database.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Havenwood/persist/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Havenwood/persist/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <header>
+          <h1>Persist.db</h1>
+          <h2>A DSL for file-persistent storage of Ruby Objects in a NoSQL database.</h2>
         </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>Persist.db</h1>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Havenwood/persist/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Havenwood/persist/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Havenwood/persist" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>Persist.db</h1>
 
 <p>Persist.db implements a DSL around Ruby Standard Library's PStore to facilitate simple file-persistant storage of Ruby objects in a transactional NoSQL database.</p>
 
@@ -56,8 +56,7 @@
 
 <p>Example in Pry (or IRB if you must):</p>
 
-<div class="highlight">
-<pre><span class="nb">require</span> <span class="s1">'persist'</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'persist'</span>
   <span class="c1">#=&gt; true</span>
 
 <span class="no">Persist</span><span class="o">.</span><span class="n">pull</span>
@@ -75,14 +74,11 @@
 
 <span class="no">Persist</span><span class="o">[</span><span class="ss">:ice_cream</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'vanilla'</span><span class="o">]</span>
   <span class="c1"># =&gt; ["chocolate", "vanilla"]</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p>You can now exit Pry/IRB and your store will persist!</p>
 
-<div class="highlight">
-<pre><span class="nb">require</span> <span class="s1">'persist'</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'persist'</span>
   <span class="c1">#=&gt; true</span>
 
 <span class="no">Persist</span><span class="o">.</span><span class="n">pull</span>
@@ -90,16 +86,23 @@
 
 <span class="no">Persist</span><span class="o">[</span><span class="ss">:pie</span><span class="o">]</span>
   <span class="c1">#=&gt; ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]</span>
-</pre>
-</div>
+</pre></div>
 
+<h2>Transactions</h2>
+
+<p>Transactions succeed or fail together to ensure that data is not left in a transitory state:</p>
+
+<div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">transaction</span> <span class="k">do</span> <span class="o">|</span><span class="n">db</span><span class="o">|</span>
+  <span class="n">db</span><span class="o">[</span><span class="ss">:cake</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'pie is better!'</span>
+  <span class="n">db</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
+<span class="k">end</span>
+</pre></div>
 
 <h2>Helper Methods</h2>
 
 <p>Each of Persist.db's tables is stored as a key:</p>
 
-<div class="highlight">
-<pre><span class="no">Persist</span><span class="o">.</span><span class="n">keys</span>
+<div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">keys</span>
   <span class="c1">#=&gt; [:pie, :ice_cream]</span>
 
 <span class="no">Persist</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:pie</span>
@@ -107,38 +110,19 @@
 
 <span class="no">Persist</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:cake</span>
   <span class="c1">#=&gt; false</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p>Tables can be clobbered:</p>
 
-<div class="highlight">
-<pre><span class="no">Persist</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
+<div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
   <span class="c1">#=&gt; nil</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p>To check the location of your persistent store file:</p>
 
-<div class="highlight">
-<pre><span class="no">Persist</span><span class="o">.</span><span class="n">path</span>
+<div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">path</span>
   <span class="c1">#=&gt; ".db.pstore"</span>
-</pre>
-</div>
-
-
-<p>Transactions succeed or fail together to ensure that data is not left in a transitory state:</p>
-
-<div class="highlight">
-<pre><span class="no">Persist</span><span class="o">.</span><span class="n">transaction</span> <span class="k">do</span> <span class="o">|</span><span class="n">db</span><span class="o">|</span>
-  <span class="n">db</span><span class="o">[</span><span class="ss">:cake</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'pie is better!'</span>
-  <span class="n">db</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
-<span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p><a href="https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb">Additional documentation</a> in the code.</p>
 
@@ -157,18 +141,15 @@
 <li>Submit a Pull Request</li>
 <li><img class="emoji" title=":cake:" alt=":cake:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/cake.png?v5" height="20" width="20" align="absmiddle"></li>
 </ol>
-      </section>
+        </section>
+
+        <footer>
+          Persist.db is maintained by <a href="https://github.com/Havenwood">Havenwood</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Persist.db maintained by <a href="https://github.com/Havenwood">Havenwood</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
