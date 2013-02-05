@@ -16,4 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = Persist.version
   
   gem.add_development_dependency 'minitest'
+  
+  gem.signing_key = '/Users/shannonskipper/.gem/private/gem-private_key.pem'
+  gem.cert_chain  = ['/Users/shannonskipper/.gem/private/gem-public_cert.pem']
 end
