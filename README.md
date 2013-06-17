@@ -1,7 +1,7 @@
 # Persist
 [![Build Status](https://travis-ci.org/havenwood/persist.png?branch=master)](https://travis-ci.org/havenwood/persist)
 
-The Persist gem is a minimalist wrapper around Ruby's [PStore](http://ruby-doc.org/stdlib-2.0/libdoc/pstore/rdoc/PStore.html) that allows uber-simple disk persistence of Ruby objects.
+The Persist gem allows uber-simple persistance of Ruby objects. Persist uses Ruby's PStore class to serialize Ruby objects with Marshal and then use safe transactions to persist to disk.
 
 ## Installation
 ```bash
