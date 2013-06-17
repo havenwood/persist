@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Persist::VERSION
   
   gem.add_development_dependency 'minitest'
+  gem.add_development_dependency 'rake'
 end
