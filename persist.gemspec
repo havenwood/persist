@@ -4,8 +4,8 @@ require File.expand_path('../lib/persist/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ['Shannon Skipper']
   gem.email         = ['shannonskipper@gmail.com']
-  gem.description   = %q{A DSL for storing Ruby Objects transactionally in a persistent NoSQL database}
-  gem.summary       = %q{Persist.db is a DSL implemented around Ruby Standard Library's PStore to facilitate simple file-persistant storage of Ruby objects in a transactional NoSQL database.}
+  gem.description   = %q{A wrapper around Ruby's PStore that allows you to persist Ruby objects to a transactional file store.}
+  gem.summary       = %q{Persist Ruby objects to a transactional file store using Ruby's Pstore.}
   gem.homepage      = 'https://github.com/Havenwood/persist'
 
   gem.files         = `git ls-files`.split($\)
@@ -16,7 +16,4 @@ Gem::Specification.new do |gem|
   gem.version       = Persist::VERSION
   
   gem.add_development_dependency 'minitest'
-  
-  gem.signing_key = '/Users/shannonskipper/.gem/private/gem-private_key.pem'
-  gem.cert_chain  = ['/Users/shannonskipper/.gem/private/gem-public_cert.pem']
 end
