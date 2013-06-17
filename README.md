@@ -54,13 +54,6 @@ Persist.path
 
 [Additional documentation](https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb) in the code.
 
-## Supported Platforms
-
-Persist takes advantage of PStore's [ultra_safe attribute](http://ruby-doc.org/stdlib-2.0/libdoc/pstore/rdoc/PStore.html#ultra_safe-attribute-method), which requires:
-
-1. Ruby 1.9+ compatibility (tested on Ruby 2.0.0, 1.9.3, JRuby and Rubinius).
-2. A POSIX compliant platform (such as OS X, GNU/Linux or a BSD).
-
 ## Installation
 Install the gem from the command line:
 ```bash
@@ -71,6 +64,13 @@ Or add the gem to your app's Gemfile and `bundle install`:
 ```ruby
 gem 'persist'
 ```
+
+## Supported Platforms
+
+Persist takes advantage of PStore's [ultra_safe attribute](http://ruby-doc.org/stdlib-2.0/libdoc/pstore/rdoc/PStore.html#ultra_safe-attribute-method), which requires:
+
+1. Ruby 1.9+ compatibility (tested on Ruby 2.0.0, 1.9.3, JRuby and Rubinius).
+2. A POSIX compliant platform (such as OS X, GNU/Linux or a BSD).
 
 ## Contributing
 
