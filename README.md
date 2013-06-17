@@ -3,17 +3,6 @@
 
 The Persist gem makes it really, really simple to persist Ruby objects to disk. Persist uses Ruby's PStore class to serialize Ruby objects with Marshal and transactionally save them for retrieval later.
 
-## Installation
-Install the gem from the command line:
-```bash
-gem install persist
-```
-
-Or add the gem to your app's Gemfile and `bundle install`:
-```ruby
-gem 'persist'
-```
-
 ## Usage
 Example in irb or [Pry](http://pryrepl.org):
 ```ruby
@@ -71,6 +60,17 @@ Persist takes advantage of PStore's [ultra_safe attribute](http://ruby-doc.org/s
 
 1. Ruby 1.9+ compatibility (tested on Ruby 2.0.0, 1.9.3, JRuby and Rubinius).
 2. A POSIX compliant platform (such as OS X, GNU/Linux or a BSD).
+
+## Installation
+Install the gem from the command line:
+```bash
+gem install persist
+```
+
+Or add the gem to your app's Gemfile and `bundle install`:
+```ruby
+gem 'persist'
+```
 
 ## Contributing
 
