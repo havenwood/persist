@@ -1,6 +1,7 @@
 # Persist
+[![Build Status](https://travis-ci.org/havenwood/persist.png?branch=master)](https://travis-ci.org/havenwood/persist)
 
-The Persist gem is a wrapper around Ruby's PStore that allows you to persist Ruby objects to a transactional file store.
+The Persist gem is a light wrapper around Ruby's PStore that allows uber-simple disk persistence of Ruby objects.
 
 ## Installation
 
@@ -10,7 +11,7 @@ gem install persist
 
 ## Usage
 
-Example in Pry/irb:
+Example in irb or (Pry)[http://pryrepl.org]:
 
 ```ruby
 require 'persist'
@@ -19,7 +20,7 @@ Persist[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
   # => ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
-You can now reload Pry/irb an your objects persist:
+You can now exit irb or (Pry)[http://pryrepl.org] an your Ruby objects are still there:
 
 ```ruby
 require 'persist'
@@ -41,8 +42,7 @@ end
 
 ## Helper Methods
 
-Each of Persist.db's tables is stored as a key:
-
+Tables are treated as Hash keys:
 ```ruby
 Persist.keys
   #=> [:pie, :ice_cream]
@@ -54,15 +54,13 @@ Persist.key? :cake
   #=> false
 ```
 
-Delete a table:
-
+Easily delete tables:
 ```ruby
 Persist.delete :pie
   #=> nil
 ```
 
-Check location of your persistent file store:
-
+Check the location of the persistant file on disk:
 ```ruby
 Persist.path
   #=> ".db.pstore"
@@ -72,10 +70,10 @@ Persist.path
 
 ## Supported Platforms
 
-Persist.db takes advantage of PStore's ultra_safe attribute, which requires:
+Persist takes advantage of PStore's ultra_safe attribute, which requires:
 
-1. Compatibility with Ruby 1.9+. (Tested on 2.0.0, 1.9.3, jruby and rbx.)
-2. A POSIX platform (such as OS X, GNU/Linux or a BSD).
+1. Ruby 1.9+ compatibility (tested on Ruby 2.0.0, 1.9.3, JRuby and Rubinius).
+2. A POSIX compliant platform (such as OS X, GNU/Linux or a BSD).
 
 ## Contributing
 
