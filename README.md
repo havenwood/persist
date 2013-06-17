@@ -4,16 +4,6 @@ Persist.db implements a DSL around Ruby Standard Library's PStore to facilitate 
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'persist'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself:
-
     $ gem install persist
 
 ## Usage
@@ -22,20 +12,15 @@ Example in Pry (or IRB if you must):
 
 ```ruby
 require 'persist'
-  #=> true
-  
+
 Persist[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
   # => ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
-
-Persist[:ice_cream] = ['chocolate', 'vanilla']
-  # => ["chocolate", "vanilla"]
 ```
 
 You can now exit Pry/IRB and your store will persist!
 
 ```ruby
 require 'persist'
-  #=> true
   
 Persist[:pie]
   #=> ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
@@ -47,7 +32,7 @@ Transactions succeed or fail together to ensure that data is not left in a trans
 
 ```ruby
 Persist.transaction do |db|
-  db[:cake] = 'pie is better!'
+  db[:ice_cream] = ['chocolate', 'vanilla']
   db.delete :pie
 end
 ```
