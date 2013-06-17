@@ -19,7 +19,7 @@
 
         <header>
           <h1>Persist.db</h1>
-          <h2>A wrapper around PStore to make persisting Ruby objects even easier.</h2>
+          <h2>A wrapper around PStore to make persisting Ruby objects as easy as possible.</h2>
         </header>
 
         <section id="downloads" class="clearfix">
@@ -50,7 +50,6 @@
 <p>Example in irb or <a href="http://pryrepl.org">Pry</a>:</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'persist'</span>
-
 <span class="no">Persist</span><span class="o">[</span><span class="ss">:pie</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'Key Lime'</span><span class="p">,</span> <span class="s1">'Strawberry Rhubarb'</span><span class="p">,</span> <span class="s1">'Blackberry Cobbler'</span><span class="o">]</span>
   <span class="c1"># =&gt; ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]</span>
 </pre></div>
@@ -58,7 +57,6 @@
 <p>You can now exit irb or <a href="http://pryrepl.org">Pry</a> and your Ruby objects are still there:</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'persist'</span>
-
 <span class="no">Persist</span><span class="o">[</span><span class="ss">:pie</span><span class="o">]</span>
   <span class="c1">#=&gt; ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]</span>
 </pre></div>
