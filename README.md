@@ -23,16 +23,6 @@ Example in Pry (or IRB if you must):
 ```ruby
 require 'persist'
   #=> true
-
-Persist.pull
- # => #<PStore:0x007f8c199c9698
-   @abort=false,
-   @filename=".db.pstore",
-   @lock=#<Mutex:0x007f8c199c9580>,
-   @rdonly=true,
-   @table={},
-   @thread_safe=true,
-   @ultra_safe=true>
   
 Persist[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
   # => ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
@@ -46,9 +36,6 @@ You can now exit Pry/IRB and your store will persist!
 ```ruby
 require 'persist'
   #=> true
-  
-Persist.pull
-  #=> #<PStore:0x007f8c199c9698 ... >
   
 Persist[:pie]
   #=> ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
