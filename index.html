@@ -69,7 +69,7 @@
 <h2>
 <a name="helper-methods" class="anchor" href="#helper-methods"><span class="octicon octicon-link"></span></a>Helper Methods</h2>
 
-<p>Tables are treated as Hash keys:</p>
+<p>Look up table keys:</p>
 
 <div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">keys</span>
   <span class="c1">#=&gt; [:pie, :ice_cream]</span>
@@ -81,13 +81,13 @@
   <span class="c1">#=&gt; false</span>
 </pre></div>
 
-<p>Easily delete tables:</p>
+<p>Delete tables:</p>
 
 <div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
   <span class="c1">#=&gt; nil</span>
 </pre></div>
 
-<p>Check the location of the persistant file on disk:</p>
+<p>Check the relative location of the persistant store file:</p>
 
 <div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">path</span>
   <span class="c1">#=&gt; ".db.pstore"</span>
