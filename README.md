@@ -28,7 +28,7 @@ end
 ```
 
 ## Helper Methods
-Tables are treated as Hash keys:
+Look up table keys:
 ```ruby
 Persist.keys
   #=> [:pie, :ice_cream]
@@ -40,13 +40,13 @@ Persist.key? :cake
   #=> false
 ```
 
-Easily delete tables:
+Delete tables:
 ```ruby
 Persist.delete :pie
   #=> nil
 ```
 
-Check relative location of the persistant store file:
+Check the relative location of the persistant store file:
 ```ruby
 Persist.path
   #=> ".db.pstore"
