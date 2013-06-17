@@ -1,3 +1,3 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/persist'
+require_relative '../lib/persist'
