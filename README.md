@@ -11,7 +11,7 @@ gem install persist
 
 ## Usage
 
-Example in irb or (Pry)[http://pryrepl.org]:
+Example in irb or [Pry](http://pryrepl.org):
 
 ```ruby
 require 'persist'
@@ -20,7 +20,7 @@ Persist[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
   # => ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
-You can now exit irb or (Pry)[http://pryrepl.org] an your Ruby objects are still there:
+You can now exit irb or Pry](http://pryrepl.org) and your Ruby objects are still there:
 
 ```ruby
 require 'persist'
