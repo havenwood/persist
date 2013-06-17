@@ -46,7 +46,7 @@ Persist.delete :pie
   #=> nil
 ```
 
-Check the location of the persistant file on disk:
+Check relative location of the persistant store file:
 ```ruby
 Persist.path
   #=> ".db.pstore"
