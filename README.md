@@ -1,7 +1,7 @@
 # Persist
 [![Build Status](https://travis-ci.org/havenwood/persist.png?branch=master)](https://travis-ci.org/havenwood/persist)
 
-The Persist gem is a light wrapper around Ruby's PStore that allows uber-simple disk persistence of Ruby objects.
+The Persist gem is a minimalist wrapper around Ruby's PStore that allows uber-simple disk persistence of Ruby objects.
 
 ## Installation
 
