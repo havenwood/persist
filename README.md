@@ -1,10 +1,11 @@
 # Persist
 [![Build Status](https://travis-ci.org/havenwood/persist.png?branch=master)](https://travis-ci.org/havenwood/persist)
 
-The Persist gem makes it easy to persist Ruby objects to disk. Persist uses Ruby's PStore class to serialize Ruby objects with Marshal then transactionally save them to the disk.
+The Persist gem makes it simple to persist Ruby objects to disk. Persist uses Ruby's PStore class to serialize Ruby objects with Marshal and transactionally save them for retrieval later.
 
 ## Installation
-  `gem install persist`
+Install the gem from the command line:
+`gem install persist`
 
 ## Usage
 Example in irb or [Pry](http://pryrepl.org):
