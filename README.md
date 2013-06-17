@@ -9,8 +9,8 @@ Install the gem from the command line:
 gem install persist
 ```
 
-Or add the gem to your app's bundle and `bundle install`:
-```bash
+Or add the gem to your app's Gemfile and `bundle install`:
+```ruby
 gem 'persist'
 ```
 
