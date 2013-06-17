@@ -5,7 +5,14 @@ The Persist gem makes it really, really simple to persist Ruby objects to disk. 
 
 ## Installation
 Install the gem from the command line:
-`gem install persist`
+```bash
+gem install persist
+```
+
+Or add the gem to your app's bundle and `bundle install`:
+```bash
+gem 'persist'
+```
 
 ## Usage
 Example in irb or [Pry](http://pryrepl.org):
