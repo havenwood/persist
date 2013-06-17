@@ -1,14 +1,16 @@
-# Persist.db
+# Persist
 
-Persist.db implements a DSL around Ruby Standard Library's PStore to facilitate simple file-persistant storage of Ruby objects in a transactional file store.
+The Persist gem is a wrapper around Ruby's PStore that allows you to persist Ruby objects to a transactional file store.
 
 ## Installation
 
-    $ gem install persist
+```bash
+gem install persist
+```
 
 ## Usage
 
-Example in Pry (or IRB if you must):
+Example in Pry/irb:
 
 ```ruby
 require 'persist'
@@ -17,7 +19,7 @@ Persist[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
   # => ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
-You can now exit Pry/IRB and your store will persist!
+You can now reload Pry/irb an your objects persist:
 
 ```ruby
 require 'persist'
@@ -52,14 +54,14 @@ Persist.key? :cake
   #=> false
 ```
 
-Tables can be clobbered:
+Delete a table:
 
 ```ruby
 Persist.delete :pie
   #=> nil
 ```
 
-To check the location of your persistent store file:
+Check location of your persistent file store:
 
 ```ruby
 Persist.path
@@ -70,10 +72,10 @@ Persist.path
 
 ## Supported Platforms
 
-Persist.db makes use of PStore's ultra_safe attribute, which requires:
+Persist.db takes advantage of PStore's ultra_safe attribute, which requires:
 
-1. Ruby 1.9 (tested on `ruby-1.9.3` and `rbx --1.9` thus far)
-2. A POSIX platform (such as OS X, GNU/Linux or FreeBSD)
+1. Compatibility with Ruby 1.9+. (Tested on 2.0.0, 1.9.3, jruby and rbx.)
+2. A POSIX platform (such as OS X, GNU/Linux or a BSD).
 
 ## Contributing
 
