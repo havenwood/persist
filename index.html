@@ -32,60 +32,32 @@
 
         <section id="main_content">
           <h1>
-<a name="persistdb" class="anchor" href="#persistdb"><span class="octicon octicon-link"></span></a>Persist.db</h1>
+<a name="persist" class="anchor" href="#persist"><span class="octicon octicon-link"></span></a>Persist</h1>
 
-<p>Persist.db implements a DSL around Ruby Standard Library's PStore to facilitate simple file-persistant storage of Ruby objects in a transactional file store.</p>
+<p><a href="https://travis-ci.org/havenwood/persist"><img src="https://travis-ci.org/havenwood/persist.png?branch=master" alt="Build Status"></a></p>
+
+<p>The Persist gem is a light wrapper around Ruby's PStore that allows uber-simple disk persistence of Ruby objects.</p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Add this line to your application's Gemfile:</p>
-
-<pre><code>gem 'persist'
-</code></pre>
-
-<p>And then execute:</p>
-
-<pre><code>$ bundle
-</code></pre>
-
-<p>Or install it yourself:</p>
-
-<pre><code>$ gem install persist
-</code></pre>
+<div class="highlight"><pre>gem install persist
+</pre></div>
 
 <h2>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Example in Pry (or IRB if you must):</p>
+<p>Example in irb or (Pry)[<a href="http://pryrepl.org%5D:">http://pryrepl.org]:</a></p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'persist'</span>
-  <span class="c1">#=&gt; true</span>
-
-<span class="no">Persist</span><span class="o">.</span><span class="n">pull</span>
- <span class="c1"># =&gt; #&lt;PStore:0x007f8c199c9698</span>
-   <span class="vi">@abort</span><span class="o">=</span><span class="kp">false</span><span class="p">,</span>
-   <span class="vi">@filename</span><span class="o">=</span><span class="s2">".db.pstore"</span><span class="p">,</span>
-   <span class="vi">@lock</span><span class="o">=</span><span class="c1">#&lt;Mutex:0x007f8c199c9580&gt;,</span>
-   <span class="vi">@rdonly</span><span class="o">=</span><span class="kp">true</span><span class="p">,</span>
-   <span class="vi">@table</span><span class="o">=</span><span class="p">{},</span>
-   <span class="vi">@thread_safe</span><span class="o">=</span><span class="kp">true</span><span class="p">,</span>
-   <span class="vi">@ultra_safe</span><span class="o">=</span><span class="kp">true</span><span class="o">&gt;</span>
 
 <span class="no">Persist</span><span class="o">[</span><span class="ss">:pie</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'Key Lime'</span><span class="p">,</span> <span class="s1">'Strawberry Rhubarb'</span><span class="p">,</span> <span class="s1">'Blackberry Cobbler'</span><span class="o">]</span>
   <span class="c1"># =&gt; ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]</span>
-
-<span class="no">Persist</span><span class="o">[</span><span class="ss">:ice_cream</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'vanilla'</span><span class="o">]</span>
-  <span class="c1"># =&gt; ["chocolate", "vanilla"]</span>
 </pre></div>
 
-<p>You can now exit Pry/IRB and your store will persist!</p>
+<p>You can now exit irb or (Pry)[<a href="http://pryrepl.org">http://pryrepl.org</a>] an your Ruby objects are still there:</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'persist'</span>
-  <span class="c1">#=&gt; true</span>
-
-<span class="no">Persist</span><span class="o">.</span><span class="n">pull</span>
-  <span class="c1">#=&gt; #&lt;PStore:0x007f8c199c9698 ... &gt;</span>
 
 <span class="no">Persist</span><span class="o">[</span><span class="ss">:pie</span><span class="o">]</span>
   <span class="c1">#=&gt; ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]</span>
@@ -97,7 +69,7 @@
 <p>Transactions succeed or fail together to ensure that data is not left in a transitory state:</p>
 
 <div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">transaction</span> <span class="k">do</span> <span class="o">|</span><span class="n">db</span><span class="o">|</span>
-  <span class="n">db</span><span class="o">[</span><span class="ss">:cake</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'pie is better!'</span>
+  <span class="n">db</span><span class="o">[</span><span class="ss">:ice_cream</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'vanilla'</span><span class="o">]</span>
   <span class="n">db</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
 <span class="k">end</span>
 </pre></div>
@@ -105,7 +77,7 @@
 <h2>
 <a name="helper-methods" class="anchor" href="#helper-methods"><span class="octicon octicon-link"></span></a>Helper Methods</h2>
 
-<p>Each of Persist.db's tables is stored as a key:</p>
+<p>Tables are treated as Hash keys:</p>
 
 <div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">keys</span>
   <span class="c1">#=&gt; [:pie, :ice_cream]</span>
@@ -117,13 +89,13 @@
   <span class="c1">#=&gt; false</span>
 </pre></div>
 
-<p>Tables can be clobbered:</p>
+<p>Easily delete tables:</p>
 
 <div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:pie</span>
   <span class="c1">#=&gt; nil</span>
 </pre></div>
 
-<p>To check the location of your persistent store file:</p>
+<p>Check the location of the persistant file on disk:</p>
 
 <div class="highlight"><pre><span class="no">Persist</span><span class="o">.</span><span class="n">path</span>
   <span class="c1">#=&gt; ".db.pstore"</span>
@@ -134,11 +106,11 @@
 <h2>
 <a name="supported-platforms" class="anchor" href="#supported-platforms"><span class="octicon octicon-link"></span></a>Supported Platforms</h2>
 
-<p>Persist.db makes use of PStore's ultra_safe attribute, which requires:</p>
+<p>Persist takes advantage of PStore's ultra_safe attribute, which requires:</p>
 
 <ol>
-<li>Ruby 1.9 (tested on <code>ruby-1.9.3</code> and <code>rbx --1.9</code> thus far)</li>
-<li>A POSIX platform (such as OS X, GNU/Linux or FreeBSD)</li>
+<li>Ruby 1.9+ compatibility (tested on Ruby 2.0.0, 1.9.3, JRuby and Rubinius).</li>
+<li>A POSIX compliant platform (such as OS X, GNU/Linux or a BSD).</li>
 </ol><h2>
 <a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
