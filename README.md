@@ -46,13 +46,19 @@ Persist.delete :pie
   #=> nil
 ```
 
-Check the relative location of the persistant store file:
+Set or check the relative location of the persistant store file:
 ```ruby
 Persist.path
   #=> ".db.pstore"
+
+Persist.path = '.whatever.pstore'
+  #=> ".whatever.db"
+
+Persist.path
+  #=> ".whatever.db"
 ```
 
-[Additional documentation](https://github.com/Havenwood/persist/blob/master/lib/persist/persist.rb) in the code.
+[Additional documentation](https://github.com/havenwood/persist/blob/master/lib/persist/persist.rb) in the code.
 
 ## Installation
 Install the gem from the command line:

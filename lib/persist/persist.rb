@@ -27,7 +27,7 @@ module Persist
     #
     # Returns the entire persistent store Object.
     def pull
-      @db = PStore.new '.db.pstore', true
+      @db = PStore.new path, true
       @db.ultra_safe = true
       @db.transaction(true) {}
       @db
@@ -168,7 +168,7 @@ module Persist
         @db[table] = value
       end
     end
-        
+    
     # Public: Delete one or more entire root tables from the persistent store.
     #
     # tables - One or more Symbols corresponding to root table keys in the
@@ -203,9 +203,14 @@ module Persist
     #
     # Returns the path to the data file as a String.
     def path
-      initialize_db
-      
-      @db.path
+      @path ||= '.db.pstore'
+    end
+    
+    # Public: Set the location of the persistent store file.
+    #
+    # Returns the set path to the db storage file.
+    def path= path
+      @path = path
     end
   end
 end
