@@ -84,3 +84,7 @@ Persist takes advantage of PStore's [ultra_safe attribute](http://ruby-doc.org/s
 2. Commit changes (`git commit -am 'did something'`)
 3. Submit a Pull Request
 4. :cake:
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/havenwood/persist/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
