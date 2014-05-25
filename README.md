@@ -50,16 +50,20 @@ store.delete :pie
   #=> nil
 ```
 
-Set the relative location of the persistant store file when you initialize:
+## File Store Path
+Set the path to the persistant store file upon initialization:
 ```ruby
 store = Persist.new "../.db.pstore"
-  #=> ".db.pstore"
-
 store.path
   #=> "../.db.pstore"
 ```
 
-[Additional documentation](https://github.com/havenwood/persist/blob/master/lib/persist/persist.rb) in the code.
+The default path is ".db.pstore" if one is not otherwise specified:
+```ruby
+store = Persist.new
+store.path
+  #=> ".db.pstore"
+```
 
 ## Installation
 Install the gem from the command line:

@@ -10,30 +10,31 @@ class Persist
   # Public: Returns the path to the persistent store file.
   attr_reader :path
 
-  # Public: Determine location of the persistent store file.
+  # Initializes the PStore Object and sets thread_safe and ultra_safe to true.
+  # Creates the file store at the specified path if it does not exist. 
+  #
+  # path - An optional String representing the relative path of the file.
   #
   # Examples
   #
-  #   Persist.path
-  #   # => ".db.pstore"
-  #
-  # Returns the path to the data file as a String.
-  #
-  # Initializes the PStore Object--deserializing the marshalled Hash
-  # stored in the '.db.pstore' file (creating the file if it does't exist)--
-  # and set thread_safe and ultra_safe to true.
-  #
-  # Examples
-  #
-  #   Persist.pull
-  #   # => #<PStore:0x007f8c199c9698
-  #     @abort=false,
-  #     @filename=".db.pstore",
-  #     @lock=#<Mutex:0x007f8c199c9580>,
-  #     @rdonly=true,
-  #     @table={},
-  #     @thread_safe=true,
-  #     @ultra_safe=true>
+  #   store = Persist.new
+  #   # => #<Persist:0x007f97b1b1b930
+  #     @db=
+  #       #<PStore:0x007f97b1b1b8e0
+  #        @abort=false,
+  #        @filename=".db.pstore",
+  #        @lock=#<Mutex:0x007f97b1b1b7c8>,
+  #        @rdonly=true,
+  #        @table=
+  #         {:trees=>["oak", "pine", "cedar"],
+  #          :one=>"first",
+  #          :two=>"second",
+  #          :author=>{:first_name=>"Shannon", :last_name=>"Skipper"},
+  #          :aim=>true,
+  #          :pie=>["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]},
+  #        @thread_safe=true,
+  #        @ultra_safe=true>,
+  #      @path=".db.pstore">
   #
   # Returns the entire persistent store Object.
   def initialize path = '.db.pstore'
@@ -53,7 +54,7 @@ class Persist
   #
   # Examples
   #
-  #   Persist.transaction do |db|
+  #   store.transaction do |db|
   #     db[:weather] = 'sunny'
   #     db.delete[:author]
   #   end
@@ -71,7 +72,7 @@ class Persist
   #
   # Examples
   #
-  #   Persist.keys
+  #   store.keys
   #   # => [:author]
   #
   # Returns an Array containing the persistent store root tables.
@@ -88,10 +89,10 @@ class Persist
   #
   # Examples
   #
-  #   Persist.key? :author
+  #   store.key? :author
   #   # => true
   #
-  #   Persist.key? :this_does_not_exist
+  #   store.key? :this_does_not_exist
   #   # => false
   #
   # Returns true or false.
@@ -108,10 +109,10 @@ class Persist
   #
   # Examples
   #
-  #   Persist[:author]
+  #   store[:author]
   #   # => {:first_name => "Shannon", :last_name => "Skipper"}
   #
-  #   Persist[:author][:first_name]
+  #   store[:author][:first_name]
   #   # => "Shannon"
   #
   # Returns the value stored in the fetched table.
@@ -130,13 +131,13 @@ class Persist
   #
   # Examples
   #
-  #   Persist.fetch :author
+  #   store.fetch :author
   #   # => {:first_name => "Shannon", :last_name => "Skipper"}
   #
-  #   Persist.fetch :snowman
+  #   store.fetch :snowman
   #   # => nil
   #
-  #   Persist.fetch :snowman, 'default value instead of nil'
+  #   store.fetch :snowman, 'default value instead of nil'
   #   # => "default value instead of nil"
   #
   # Returns the value stored in the fetched table.
@@ -154,7 +155,7 @@ class Persist
   #
   # Examples
   #
-  #   Persist[:sky] = 'blue'
+  #   store[:sky] = 'blue'
   #   # => "blue"
   #
   # Returns the value of the table.
@@ -171,10 +172,10 @@ class Persist
   #
   # Examples
   #
-  #   Persist.delete :author
+  #   store.delete :author
   #   # => nil
   #
-  #   Persist.delete :author, :clients, :rentals
+  #   store.delete :author, :clients, :rentals
   #   # => nil
   #
   # Returns nothing.
