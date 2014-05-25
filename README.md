@@ -7,21 +7,25 @@ The Persist gem makes it really, really simple to persist Ruby objects to disk. 
 Example in irb or [Pry](http://pryrepl.org):
 ```ruby
 require 'persist'
-Persist[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
+
+store = Persist.new
+store[:pie] = ['Key Lime', 'Strawberry Rhubarb', 'Blackberry Cobbler']
   # => ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
 You can now exit irb or [Pry](http://pryrepl.org) and your Ruby objects are still there:
 ```ruby
 require 'persist'
-Persist[:pie]
+
+store = Persist.new
+store[:pie]
   #=> ["Key Lime", "Strawberry Rhubarb", "Blackberry Cobbler"]
 ```
 
 ## Transactions
 Transactions succeed or fail together to ensure that data is not left in a transitory state:
 ```ruby
-Persist.transaction do |db|
+store.transaction do |db|
   db[:ice_cream] = ['chocolate', 'vanilla']
   db.delete :pie
 end
@@ -30,32 +34,29 @@ end
 ## Helper Methods
 Look up table keys:
 ```ruby
-Persist.keys
+store.keys
   #=> [:pie, :ice_cream]
 
-Persist.key? :pie
+store.key? :pie
   #=> true
 
-Persist.key? :cake
+store.key? :cake
   #=> false
 ```
 
 Delete tables:
 ```ruby
-Persist.delete :pie
+store.delete :pie
   #=> nil
 ```
 
-Set or check the relative location of the persistant store file:
+Set the relative location of the persistant store file when you initialize:
 ```ruby
-Persist.path
+store = Persist.new "../.db.pstore"
   #=> ".db.pstore"
 
-Persist.path = '.whatever.pstore'
-  #=> ".whatever.db"
-
-Persist.path
-  #=> ".whatever.db"
+store.path
+  #=> "../.db.pstore"
 ```
 
 [Additional documentation](https://github.com/havenwood/persist/blob/master/lib/persist/persist.rb) in the code.
@@ -75,7 +76,7 @@ gem 'persist'
 
 Persist takes advantage of PStore's [ultra_safe attribute](http://ruby-doc.org/stdlib-2.0/libdoc/pstore/rdoc/PStore.html#ultra_safe-attribute-method), which requires:
 
-1. Ruby 1.9+ compatibility (tested on Ruby 2.0.0, 1.9.3, JRuby and Rubinius).
+1. Ruby 1.9 or higher.
 2. A POSIX compliant platform (such as OS X, GNU/Linux or a BSD).
 
 ## Contributing

@@ -2,109 +2,105 @@ require_relative 'helper'
 
 describe Persist do
   before do
-    Persist.pull
-    Persist[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+    @store = Persist.new
   end
-  
-  describe "initializing the persistent store with Persist.db" do
-    it "returns a PStore object" do
-      assert_equal PStore, Persist.db.class
-    end
-  end
-  
+
   describe "getting a list of root keys with Persist.keys" do
     it "returns an Array" do
-      assert_kind_of Array, Persist.keys
+      assert_kind_of Array, @store.keys
     end
   end
-  
+
   describe "getting true or false if key exists with Persist.key?" do
     it "returns true if key exists" do
-      assert Persist.key?(:author)
+      @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+      assert @store.key?(:author)
     end
-    
+
     it "returns false if the key doesn't exist" do
-      refute Persist.key?(:this_does_not_exist)
+      refute @store.key?(:this_does_not_exist)
     end
   end
-  
+
   describe "getting a particular key's value with Persist.[]" do
     it "returns a value if the key exists" do
-      assert_equal "Shannon", Persist[:author][:first_name]
+      @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+      assert_equal "Shannon", @store[:author][:first_name]
     end
-    
+
     it "returns nil if the key doesn't exist" do
-      assert_nil Persist[:this_does_not_exist]
+      assert_nil @store[:this_does_not_exist]
     end
   end
-  
+
   describe "getting a particular key or default value with Persist.fetch" do
     it "returns a value if the key exists" do
-      assert_equal "Shannon", Persist.fetch(:author)[:first_name]
+      @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+      assert_equal "Shannon", @store.fetch(:author)[:first_name]
     end
-    
+
     it "returns nil if the key doesn't exist and no default is given" do
-      assert_nil Persist.fetch(:this_does_not_exist)
+      assert_nil @store.fetch(:this_does_not_exist)
     end
-    
+
     it "returns the default value if the key doesn't exist" do
-      default = Persist.fetch(:this_does_not_exist, "default value")
+      default = @store.fetch(:this_does_not_exist, "default value")
       assert_equal "default value", default
     end
   end
-  
+
   describe "setting a particular key's value with Persist.[]=" do
     before do
-      Persist[:trees] = ['oak', 'pine', 'cedar']
+      @store[:trees] = ['oak', 'pine', 'cedar']
     end
-    
-    it "should add the key to the persistent store" do
-      assert Persist.key?(:trees)
+
+    it "should add the key to the persistent @store" do
+      assert @store.key?(:trees)
     end
-    
+
     it "should be set to the expected value" do
-      assert_equal ["oak", "pine", "cedar"], Persist[:trees]
+      assert_equal ["oak", "pine", "cedar"], @store[:trees]
     end
   end
-  
+
   describe "a Persist.transaction do" do
     it "sets multiple keys when commited" do
-      Persist.transaction do |db|
+      @store.transaction do |db|
         db[:one] = 'first'
         db[:two] = 'second'
       end
-      assert_equal 'first', Persist[:one]
-      assert_equal 'second', Persist[:two]
+      assert_equal 'first', @store[:one]
+      assert_equal 'second', @store[:two]
     end
-    
+
     it "sets no keys when aborted" do
-      Persist.transaction do |db|
+      @store.transaction do |db|
         db[:pre] = 'before'
         db.abort
         db[:post] = 'after'
       end
-      assert_nil Persist[:pre]
-      assert_nil Persist[:post]
+      assert_nil @store[:pre]
+      assert_nil @store[:post]
     end
   end
-  
+
   describe "deleting a root key with Persist.delete" do
     before do
-      Persist.delete :author
+      @store.delete :author
     end
     
     it "returns nil because the key no longer exists" do
-      assert_nil Persist[:author]
+      assert_nil @store[:author]
     end
   end
-  
+
   describe "check path with Persist.path" do
     it "returns a String" do
-      assert_kind_of String, Persist.path
+      assert_kind_of String, @store.path
     end
-    
-    it "includes the data store file name" do
-      assert_includes ".db.pstore", Persist.path
+
+    it "includes the data @store file name" do
+      assert_includes ".db.pstore", @store.path
     end
   end
 end
