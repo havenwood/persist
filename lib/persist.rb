@@ -98,7 +98,7 @@ class Persist
   # Returns true or false.
   def key? table
     @db.transaction true do
-      @db.root? table
+      @db.root? table.to_sym
     end
   end
 
@@ -166,9 +166,12 @@ class Persist
   # Returns the value of the table.
   def []= table, value
     @db.transaction do
-      @db[table] = value
+      @db[table.to_sym] = value
     end
   end
+  
+  alias save []= 
+  alias store []= 
 
   # Public: Delete one or more entire root tables from the persistent store.
   #
@@ -187,11 +190,13 @@ class Persist
   def delete *tables
     @db.transaction do
       tables.each do |table|
-	@db.delete table
+	@db.delete table.to_sym
       end
       @db.commit
     end
   end
+  
+  alias remove delete
 
   # Public: Return total count of tables in the persistent store.
   #
