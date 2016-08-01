@@ -120,10 +120,10 @@ class Persist
   # Returns the value stored in the fetched table.
   def [] table
     @db.transaction true do
-      @db[table]
+      @db[table.to_sym]
     end
   end
-
+  
   # Public: Fetch a particular table from the persistent store.
   #
   # table   - A Symbol corresponding to a root table key in the persistent 
@@ -145,9 +145,12 @@ class Persist
   # Returns the value stored in the fetched table.
   def fetch table, default = nil
     @db.transaction true do
-      @db.fetch table, default
+      @db.fetch table.to_sym, default
     end
   end
+
+  alias get fetch 
+  alias find fetch
 
   # Public: Use a single transaction to set a table value.
   #

@@ -40,6 +40,7 @@ describe Persist do
     it "returns a value if the key exists" do
       @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
       assert_equal "Shannon", @store[:author][:first_name]
+
     end
 
     it "returns nil if the key doesn't exist" do
@@ -48,6 +49,18 @@ describe Persist do
   end
 
   describe "getting a particular key or default value with Persist.fetch" do
+    it "returns a value if with the alias Persist.get" do
+      @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+      table =  @store.get("author")
+      assert_equal "Shannon", table[:first_name]
+    end
+
+    it "returns a value if with the alias Persist.find" do
+      @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+      table = @store.find("author")
+      assert_equal "Shannon", table[:first_name]
+    end
+
     it "returns a value if the key exists" do
       @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
       assert_equal "Shannon", @store.fetch(:author)[:first_name]
