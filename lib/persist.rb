@@ -182,9 +182,28 @@ class Persist
   def delete *tables
     @db.transaction do
       tables.each do |table|
-        @db.delete table
+	@db.delete table
       end
       @db.commit
     end
   end
+
+  # Public: Return total count of tables in the persistent store.
+  #
+  # tables - One or more Symbols corresponding to root table keys in the
+  #          persistent store.
+  #
+  # Examples
+  #
+  #   store.count 
+  #   # => 3
+  #
+  # Returns the total count of tables in the persistent store.
+  def count 
+    keys = @db.transaction true do
+      @db.roots
+    end
+    return keys.count
+  end
+
 end
