@@ -98,9 +98,11 @@ class Persist
   # Returns true or false.
   def key? table
     @db.transaction true do
-      @db.root? table
+      @db.root? table.to_sym
     end
   end
+
+  alias exists? key?
 
   # Public: Fetch a particular table from the persistent store.
   #
@@ -118,10 +120,10 @@ class Persist
   # Returns the value stored in the fetched table.
   def [] table
     @db.transaction true do
-      @db[table]
+      @db[table.to_sym]
     end
   end
-
+  
   # Public: Fetch a particular table from the persistent store.
   #
   # table   - A Symbol corresponding to a root table key in the persistent 
@@ -143,9 +145,12 @@ class Persist
   # Returns the value stored in the fetched table.
   def fetch table, default = nil
     @db.transaction true do
-      @db.fetch table, default
+      @db.fetch table.to_sym, default
     end
   end
+
+  alias get fetch 
+  alias find fetch
 
   # Public: Use a single transaction to set a table value.
   #
@@ -161,9 +166,12 @@ class Persist
   # Returns the value of the table.
   def []= table, value
     @db.transaction do
-      @db[table] = value
+      @db[table.to_sym] = value
     end
   end
+  
+  alias save []= 
+  alias store []= 
 
   # Public: Delete one or more entire root tables from the persistent store.
   #
@@ -182,9 +190,27 @@ class Persist
   def delete *tables
     @db.transaction do
       tables.each do |table|
-        @db.delete table
+	@db.delete table.to_sym
       end
       @db.commit
     end
   end
+  
+  alias remove delete
+
+  # Public: Return total count of tables in the persistent store.
+  #
+  # tables - One or more Symbols corresponding to root table keys in the
+  #          persistent store.
+  #
+  # Examples
+  #
+  #   store.count 
+  #   # => 3
+  #
+  # Returns the total count of tables in the persistent store.
+  def count 
+    return keys.count
+  end
+
 end

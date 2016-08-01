@@ -5,6 +5,19 @@ describe Persist do
     @store = Persist.new
   end
 
+  describe "getting a count of keys in datastore" do
+    it "returns the count of keys in the datastore" do
+      db = '.db.pstore'
+      `rm #{db}`
+      number = Random.new.rand(100)
+      number.times do 
+	@store[Random.new_seed.to_s] = {first_name: 'Shannon', last_name: 'Skipper'}
+      end
+      assert_kind_of Integer, @store.count 
+      assert_equal number, @store.count
+    end
+  end
+
   describe "getting a list of root keys with Persist.keys" do
     it "returns an Array" do
       assert_kind_of Array, @store.keys
@@ -15,6 +28,7 @@ describe Persist do
     it "returns true if key exists" do
       @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
       assert @store.key?(:author)
+      assert @store.exists?(:author)
     end
 
     it "returns false if the key doesn't exist" do
@@ -26,6 +40,7 @@ describe Persist do
     it "returns a value if the key exists" do
       @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
       assert_equal "Shannon", @store[:author][:first_name]
+
     end
 
     it "returns nil if the key doesn't exist" do
@@ -34,6 +49,18 @@ describe Persist do
   end
 
   describe "getting a particular key or default value with Persist.fetch" do
+    it "returns a value if with the alias Persist.get" do
+      @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+      table =  @store.get("author")
+      assert_equal "Shannon", table[:first_name]
+    end
+
+    it "returns a value if with the alias Persist.find" do
+      @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
+      table = @store.find("author")
+      assert_equal "Shannon", table[:first_name]
+    end
+
     it "returns a value if the key exists" do
       @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
       assert_equal "Shannon", @store.fetch(:author)[:first_name]
@@ -66,8 +93,8 @@ describe Persist do
   describe "a Persist.transaction do" do
     it "sets multiple keys when commited" do
       @store.transaction do |db|
-        db[:one] = 'first'
-        db[:two] = 'second'
+	db[:one] = 'first'
+	db[:two] = 'second'
       end
       assert_equal 'first', @store[:one]
       assert_equal 'second', @store[:two]
@@ -75,9 +102,9 @@ describe Persist do
 
     it "sets no keys when aborted" do
       @store.transaction do |db|
-        db[:pre] = 'before'
-        db.abort
-        db[:post] = 'after'
+	db[:pre] = 'before'
+	db.abort
+	db[:post] = 'after'
       end
       assert_nil @store[:pre]
       assert_nil @store[:post]
@@ -88,7 +115,7 @@ describe Persist do
     before do
       @store.delete :author
     end
-    
+
     it "returns nil because the key no longer exists" do
       assert_nil @store[:author]
     end
