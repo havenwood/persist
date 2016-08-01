@@ -28,6 +28,7 @@ describe Persist do
     it "returns true if key exists" do
       @store[:author] = {first_name: 'Shannon', last_name: 'Skipper'}
       assert @store.key?(:author)
+      assert @store.exists?(:author)
     end
 
     it "returns false if the key doesn't exist" do

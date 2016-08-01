@@ -102,6 +102,8 @@ class Persist
     end
   end
 
+  alias exists? key?
+
   # Public: Fetch a particular table from the persistent store.
   #
   # table - A Symbol corresponding to a root table key in the persistent 
