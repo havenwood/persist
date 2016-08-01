@@ -200,9 +200,6 @@ class Persist
   #
   # Returns the total count of tables in the persistent store.
   def count 
-    keys = @db.transaction true do
-      @db.roots
-    end
     return keys.count
   end
 
